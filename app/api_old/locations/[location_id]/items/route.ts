@@ -12,7 +12,7 @@ export const runtime = 'edge'
 export async function GET(request: Request, context: RouteParams) {
   // Return all items using getAllItems function
 
-  let items = await getAllItems(context.params.location_id)
+  const items = await getAllItems(context.params.location_id)
   return new Response(JSON.stringify(items), {
     headers: {
       "content-type": "application/json",

@@ -1,8 +1,8 @@
 import { getPublicSites } from "../../../lib/dineOnCampusAPI";
 
-export async function GET(_request: Request) {
+export async function GET() {
   // deno-lint-ignore prefer-const
-  let sites = await getPublicSites()
+  const sites = await getPublicSites()
 
   return new Response( JSON.stringify(sites), {
     headers: {

@@ -1,15 +1,13 @@
 'use client'
 import { useState, useEffect } from 'react'
-import {Star, Search, Filter, ChevronRight} from 'lucide-react'
+import { Search, ChevronRight} from 'lucide-react'
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import Link from 'next/link' // Import Link for dynamic routing
 import { Card } from '@/components/ui/card'
 import { Site, SitesResponse } from '@/lib/types/dineOnCampusAPI'
 
 export default function SchoolDirectory() {
-  const [schools, setSchools] = useState<Site | any>([])
+  const [schools, setSchools] = useState<Site | []>([])
   const [searchTerm, setSearchTerm] = useState("")
 
   // Fetch the data dynamically
@@ -17,12 +15,16 @@ export default function SchoolDirectory() {
     const fetchData = async () => {
       const response = await fetch('/api/sites') // Adjust endpoint as needed
       const data = await response.json() as SitesResponse
+      //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-expect-error
       setSchools(data.sites)
     }
     fetchData()
   }, [])
 
-  const filteredSchools = schools.filter((school: Site) =>
+  //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-expect-error
+  const filteredSchools = schools?.filter((school: Site) =>
     school.name.toLowerCase().includes(searchTerm.toLowerCase())
   )
 

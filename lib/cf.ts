@@ -1,46 +1,56 @@
+
 'use server';
 import type { CfProperties, KVNamespace } from '@cloudflare/workers-types';
 import { getRequestContext } from '@cloudflare/next-on-pages';
 import { MenuItem } from './types/dineOnCampusAPI';
 import { nanoid } from 'nanoid'
-import {revalidatePath} from "next/cache";
 
 export async function balls() {
   const { env, cf } = getRequestContext<{ env: CloudflareEnv, cf: CfProperties }>();
 
   console.log('balls', env, cf);
 
+  //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
   const CACHE = env.CACHE as KVNamespace;
+
+  //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
   const D1 = env.D1 as D1Database
 
+  //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
   const { request, response } = cf;
 
-  console.log('balls', CACHE, D1, request, response);``
+  console.log('balls', CACHE, D1, request, response);
 
   await CACHE.put('key', 'value');
 
 
-  let res = await CACHE.get('key');
+  const res = await CACHE.get('key');
 
   console.log('balls', res);
 }
 
 
 export async function set_in_kv(key: string, value: string) {
-  const { env, cf } = getRequestContext<{ env: CloudflareEnv, cf: CfProperties }>();
+  const { env } = getRequestContext<{ env: CloudflareEnv, cf: CfProperties }>();
 
+  //eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   await env.CACHE.put(key, value);
 
 }
 
 export async function getItem(id: string): Promise<MenuItem | {name : string}> {
-  const { env, cf } = getRequestContext<{ env: CloudflareEnv, cf: CfProperties }>()
+  const { env } = getRequestContext<{ env: CloudflareEnv, cf: CfProperties }>()
 
 
-  //@ts-ignore
+  //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   console.log(await env.CACHE.list())
 
+  //eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const item = await env.CACHE.get(id);
   if (item === null) {
@@ -83,36 +93,41 @@ export async function log_rating(user_id: string, rating: string): Promise {
 
  */
 export async function add_rating(recipe_id: string, user_id: string, rating: number): Promise<any> {
-  const { env, cf } = getRequestContext<{ env: CloudflareEnv, cf: CfProperties }>()
+  const { env } = getRequestContext<{ env: CloudflareEnv, cf: CfProperties }>()
 
+  //eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   await env.D1.prepare("INSERT INTO ratings (recipe_id, rating, submitter, date) VALUES (?1, ?2, ?3, ?4)").bind(recipe_id, rating, user_id, new Date().toISOString()).run()
 }
 
 export async function remove_rating(recipe_id: string, user_id: string): Promise<any> {
-  const { env, cf } = getRequestContext<{ env: CloudflareEnv, cf: CfProperties }>()
+  const { env } = getRequestContext<{ env: CloudflareEnv, cf: CfProperties }>()
 
+  //eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   await env.D1.prepare("DELETE FROM ratings WHERE recipe_id = ?1 AND submitter = ?2").bind(recipe_id, user_id).run()
 }
 
 export async function add_bookmark(user_id: string, recipe_id: string): Promise<any> {
-  const { env, cf } = getRequestContext<{ env: CloudflareEnv, cf: CfProperties }>()
+  const { env } = getRequestContext<{ env: CloudflareEnv, cf: CfProperties }>()
 
+  //eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   await env.D1.prepare("INSERT INTO user_bookmarks (owner_id, recipe_id, date_added) VALUES (?1, ?2, ?3)").bind(user_id, recipe_id, new Date().toISOString()).run()
 }
 
 export async function remove_bookmark(user_id: string, recipe_id: string): Promise<any> {
-  const { env, cf } = getRequestContext<{ env: CloudflareEnv, cf: CfProperties }>()
+  const { env } = getRequestContext<{ env: CloudflareEnv, cf: CfProperties }>()
 
+  //eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   await env.D1.prepare("DELETE FROM user_bookmarks WHERE owner_id = ?1 AND recipe_id = ?2").bind(user_id, recipe_id).run()
 }
 
 export async function get_bookmarks(user_id: string): Promise<any> {
-  const { env, cf } = getRequestContext<{ env: CloudflareEnv, cf: CfProperties }>()
+  const { env } = getRequestContext<{ env: CloudflareEnv, cf: CfProperties }>()
 
+  //eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const { results } = await env.D1.prepare("SELECT * FROM user_bookmarks WHERE owner_id = ?1").bind(user_id).all()
 
@@ -122,6 +137,7 @@ export async function get_bookmarks(user_id: string): Promise<any> {
 
   // get details for each recipe
     const recipe_ids = results.map((bookmark: { recipe_id: string }) => bookmark.recipe_id);
+  //eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
     const { results: recipes } = await env.D1.prepare(`SELECT * FROM recipes WHERE recipe_id IN (${recipe_ids.map(() => '?').join(',')})`).bind(...recipe_ids).all();
 
@@ -131,7 +147,7 @@ export async function get_bookmarks(user_id: string): Promise<any> {
 }
 
 export async function create_recipe(name: string, author: string, description: string, rating: number, items: MenuItem[]): Promise<any> {
-  const { env, cf } = getRequestContext<{ env: CloudflareEnv, cf: CfProperties }>()
+  const { env } = getRequestContext<{ env: CloudflareEnv, cf: CfProperties }>()
 
 
   // Generate a unique recipe ID
@@ -139,6 +155,7 @@ export async function create_recipe(name: string, author: string, description: s
 
   try {
     // Execute the SQL query with properly bound parameters
+    //eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const result = await env.D1
       .prepare(
@@ -215,22 +232,4 @@ export async function get_user_recipes(user_id: string): Promise<any> {
   return results;
 }
 
-export async function submitRating(prevState: any, formData: FormData) {
-  const menuId = formData.get('id') as string
-  const rating = formData.get('rating') as string
-  const user_id = formData.get('rating') as string
 
-  // TODO: Implement actual rating submission logic here
-  // This is where you would typically interact with your database
-  await add_rating(menuId, '', parseInt(rating))
-
-  console.log(`Submitting rating ${rating} for menu item ${menuId}`)
-
-  // Simulate a delay to mimic database operation
-  await new Promise(resolve => setTimeout(resolve, 1000))
-
-  // Revalidate the recipe page to reflect the new rating
-  revalidatePath(`/recipes/${menuId}`)
-
-  return { message: 'Rating submitted successfully!', success: true }
-}

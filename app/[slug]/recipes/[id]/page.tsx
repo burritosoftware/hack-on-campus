@@ -2,8 +2,8 @@
 import { get_recipe, getItem } from '@/lib/cf'
 import { Recipe } from '@/lib/types/recipe'
 import Link from "next/link";
-import {getAllItems} from "@/lib/dineOnCampusAPI";
 import {redirect} from "next/navigation";
+import {Button} from "@/components/ui/button";
 
 export const runtime = 'edge'
 
@@ -42,7 +42,7 @@ const items = JSON.parse(recipe.items)
           <div>
             <h2 className="text-xl font-bold">Ingredients</h2>
             <ul>
-              {items.map((item: any) => (
+              {items.map((item: never) => (
                 <li key={item} className="flex items-center justify-between">
                   <span>{(getItem(item)).then((item) => item.name)}</span>
                 </li>
@@ -56,8 +56,8 @@ const items = JSON.parse(recipe.items)
       </div>
           <div className="mt-8">
               Rate this recipe!
-                <Link href={`${params.slug}/recipes/${params.id}/rate`}>
-                    <div className="text-blue-400">Rate</div>
+                <Link href={`${params.id}/rate`}>
+                    <Button className="text-blue-400">Rate</Button>
                 </Link>
           </div>
     </div>

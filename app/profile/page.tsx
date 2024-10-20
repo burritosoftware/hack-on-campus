@@ -21,7 +21,7 @@ export default async function Component() {
     const {getUser, isAuthenticated} = getKindeServerSession()
 
 
-    let isAuth = await isAuthenticated()
+    const isAuth = await isAuthenticated()
     if (!isAuth) {
         redirect('/api/auth/login?redirect=/profile')
     }
@@ -67,7 +67,7 @@ export default async function Component() {
                         Bookmarked Recipes
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {bookmarks.map((recipe: { id: Key | null | undefined; name: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined; rating: number; }) => (
+                        {bookmarks.map((recipe: { id: Key | null | undefined; name: string | number | bigint | boolean | ReactElement | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined; rating: number; }) => (
                             <Card key={recipe.id} className="bg-gray-800 border-gray-700 hover:shadow-lg hover:shadow-purple-500/20 transition duration-300 ease-in-out">
                                 <CardHeader>
                                     <CardTitle>{recipe.name}</CardTitle>
@@ -92,7 +92,7 @@ export default async function Component() {
                         My Recipes
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {recipes.map((recipe: { id: Key | null | undefined; name: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined; rating: number; }) => (
+                        {recipes.map((recipe: { id: Key | null | undefined; name: string | number | bigint | boolean | ReactElement | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined; rating: number; }) => (
                             <Card key={recipe.id} className="bg-gray-800 border-gray-700 hover:shadow-lg hover:shadow-purple-500/20 transition duration-300 ease-in-out">
                                 <CardHeader>
                                     <CardTitle>{recipe.name}</CardTitle>

@@ -19,8 +19,8 @@ export async function GET(request: Request, context: RouteParams) {
   }
 
   // Fetch Dine On Campus API
-  let dineoncampusrreq = await fetch(`https://api.dineoncampus.com/v1/locations/status?site_id=${context.params.site_id}&platform=0`)
-  let dineoncampusres = await dineoncampusrreq.json()
+  const dineoncampusrreq = await fetch(`https://api.dineoncampus.com/v1/locations/status?site_id=${context.params.site_id}&platform=0`)
+  const dineoncampusres = await dineoncampusrreq.json()
 
   // Return Dine On Campus API response
   return new Response(JSON.stringify(dineoncampusres), {
