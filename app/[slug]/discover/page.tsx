@@ -1,20 +1,18 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { Star, Search, Filter } from 'lucide-react'
+import { Star, Search } from 'lucide-react'
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 // mock data
-import mock from '@/lib/recipes.json'
-import { Card } from '@/components/ui/card'
-import { get_recipes } from '@/lib/cf'
 import { Recipe } from '@/lib/types/recipe'
+import Link from "next/link";
 
 
 
+export const runtime = 'edge'
 
-export default function Component() {
+export default function Component({ params }: { params: { slug: string } }) {
 
 const [foodHacks, setFoodHacks] = useState<Recipe[]>([])
 
@@ -40,7 +38,7 @@ foodHacks.forEach(hack => {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("All")
 
-  const filteredHacks = foodHacks.filter(hack => 
+  const filteredHacks = foodHacks.filter(hack =>
     hack.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
     (selectedCategory === "All" || hack.author === selectedCategory)
   )
@@ -79,14 +77,14 @@ foodHacks.forEach(hack => {
         {/* Mosaic Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filteredHacks.map((hack) => (
-            <div key={hack.name} className={" bg-gray-800 rounded-lg p-6 hover:shadow-lg hover:shadow-purple-500/20 transition duration-300 ease-in-out transform hover:-translate-y-1 "}>
+            <Link key={hack.name} className={" bg-gray-800 rounded-lg p-6 hover:shadow-lg hover:shadow-purple-500/20 transition duration-300 ease-in-out transform hover:-translate-y-1 "} href={`/${params.slug}/recipes/${hack?.recipe_id}`}>
               <div className="text-xl font-semibold mb-2">{hack.name}</div>
               <p className="text-gray-400 mb-4">{hack.author}</p>
               <div className="flex items-center">
                 <Star className="text-yellow-400 mr-1" />
-                <span>{hack.rating.toFixed(1)}</span>
+                <span>{hack.rating}</span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 

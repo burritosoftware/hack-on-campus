@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { ChevronRight, Code, Utensils, Star } from 'lucide-react'
+import Link from "next/link";
 
 export default function Component() {
   const [isHovered, setIsHovered] = useState(false)
@@ -18,15 +19,18 @@ export default function Component() {
         <p className="text-lg mb-12 text-gray-400">
           (for Chartwells schools only)
         </p>
-        <button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold py-3 px-6 rounded-full hover:shadow-lg hover:shadow-purple-500/50 transition duration-300 ease-in-out transform hover:-translate-y-1">
-          Start Hacking
-        </button>
+          <Link href={'/findschool'}>
+              <button
+                  className="bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold py-3 px-6 rounded-full hover:shadow-lg hover:shadow-purple-500/50 transition duration-300 ease-in-out transform hover:-translate-y-1">
+                  Start Hacking
+              </button>
+          </Link>
       </header>
 
-      {/* Featured Recipes Section */}
-      <section className="container mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold mb-8 text-center">Check out some of these recipes</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Featured Recipes Section */}
+        <section className="container mx-auto px-4 py-16">
+            <h2 className="text-3xl font-bold mb-8 text-center">Check out some of these recipes</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {['Ramen Burger', 'Pizza Quesadilla', 'Waffle Sandwich'].map((recipe, index) => (
             <div key={index} className="bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-lg rounded-lg p-6 hover:shadow-xl hover:shadow-purple-500/20 transition duration-300 ease-in-out">
               <Utensils className="w-12 h-12 mb-4 text-purple-400" />
@@ -57,7 +61,9 @@ export default function Component() {
       {/* CTA Section */}
       <section className="container mx-auto px-4 py-16 text-center">
         <h2 className="text-3xl font-bold mb-8">Ready to hack your school's dining hall?</h2>
-        <button
+
+          <Link href={'/findschool'}>
+          <button
           className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-gradient-to-r from-purple-600 to-pink-600 rounded-full overflow-hidden transition-all duration-300 ease-in-out"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
@@ -66,6 +72,7 @@ export default function Component() {
           <ChevronRight className={`w-6 h-6 ml-2 transition-transform duration-300 ease-in-out ${isHovered ? 'translate-x-1' : ''}`} />
           <div className="absolute inset-0 bg-white bg-opacity-20 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out"></div>
         </button>
+          </Link>
       </section>
 
       {/* Footer */}

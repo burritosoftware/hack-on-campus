@@ -7,4 +7,5 @@ export interface Recipe {
   description: string;
   rating: number;
   items: MenuItem[];
+  recipe_id: string;
 }

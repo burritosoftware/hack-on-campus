@@ -1,5 +1,9 @@
 import { redirect } from 'next/navigation'
- 
+
 export async function GET(request: Request) {
-  redirect('https://nextjs.org/')
+  console.log(request.url)
+
+  // append /discover to the existing url
+
+  return redirect(`${request.url}/discover`)
 }

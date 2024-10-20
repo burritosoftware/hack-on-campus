@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { Star, Search, Filter } from 'lucide-react'
+import {Star, Search, Filter, ChevronRight} from 'lucide-react'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -22,7 +22,7 @@ export default function SchoolDirectory() {
     fetchData()
   }, [])
 
-  const filteredSchools = schools.filter((school: Site) => 
+  const filteredSchools = schools.filter((school: Site) =>
     school.name.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
@@ -51,11 +51,8 @@ export default function SchoolDirectory() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filteredSchools.map((school: Site) => (
             <Link key={school.id} href={`/${school.slug}`}>
-              <Card className="bg-gray-800 rounded-lg p-6 hover:shadow-lg hover:shadow-purple-500/20 transition duration-300 ease-in-out transform hover:-translate-y-1">
-                <div className="text-xl font-semibold mb-2">{school.name}</div>
-                <div className="flex items-center">
-                  <Star className="text-yellow-400 mr-1" />
-                </div>
+              <Card className="bg-gray-800 border-0 rounded-lg p-6 hover:shadow-lg hover:shadow-purple-500/20 transition duration-300 ease-in-out transform hover:-translate-y-1">
+                <div className="text-xl font-semibold mb-2 text-white flex inline-flex">{school.name} <ChevronRight /> </div>
               </Card>
             </Link>
           ))}

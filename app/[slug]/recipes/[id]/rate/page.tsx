@@ -1,0 +1,92 @@
+'use client'
+
+import {useEffect, useState} from 'react'
+import { useRouter } from 'next/navigation'
+import { Star } from 'lucide-react'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { useFormState } from 'react-dom'
+import {useKindeBrowserClient} from "@kinde-oss/kinde-auth-nextjs";
+import { submitRating } from '@/lib/cf'
+
+export default function RatingPage({ params }: { params: { slug: string, id: string } }) {
+    const [rating, setRating] = useState(0)
+    const [hover, setHover] = useState(0)
+    const router = useRouter()
+    const [state, formAction] = useFormState(submitRating, null)
+    const [userId, setUserId] = useState('')
+
+    // get Kinde login session, on the client
+    const {user, getUser} = useKindeBrowserClient();
+    const alsoUser = getUser();
+
+   useEffect(() => {
+       // @ts-expect-error
+        setUserId(alsoUser.id)
+    }, [user])
+
+
+
+    const handleSubmit = async (formData: FormData) => {
+        formData.append('menuId', params.id)
+        formData.append('rating', rating.toString())
+        formData.append('user_id', userId)
+
+
+        const result = await submitRating(null, formData)
+        if (result.success) {
+            router.push(`/recipes/${params.id}`)
+        }
+    }
+
+    return (
+        <div className="min-h-screen bg-gray-900 text-white font-sans flex items-center justify-center">
+            <Card className="w-full max-w-md bg-gray-800 border-gray-700">
+                <CardHeader>
+                    <CardTitle className="text-2xl font-bold text-center">Rate your experience</CardTitle>
+                    <CardDescription className="text-center text-gray-400">with this recipe</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <form action={handleSubmit}>
+                        <div className="flex justify-center space-x-1 mb-6">
+                            {[...Array(5)].map((_, index) => {
+                                const ratingValue = index + 1
+                                return (
+                                    <label key={index}>
+                                        <input
+                                            type="radio"
+                                            name="rating"
+                                            value={ratingValue}
+                                            onClick={() => setRating(ratingValue)}
+                                            className="hidden"
+                                        />
+                                        <Star
+                                            className={`cursor-pointer transition-colors duration-200 ${
+                                                ratingValue <= (hover || rating) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-400'
+                                            }`}
+                                            onMouseEnter={() => setHover(ratingValue)}
+                                            onMouseLeave={() => setHover(0)}
+                                            size={32}
+                                        />
+                                    </label>
+                                )
+                            })}
+                        </div>
+                        <Button
+                            type="submit"
+                            className="w-full bg-purple-600 hover:bg-purple-700 transition-colors duration-200"
+                            disabled={rating === 0}
+                        >
+                            Submit
+                        </Button>
+                    </form>
+                    {state && state.message && (
+                        <p className={`mt-4 text-center ${state.success ? 'text-green-400' : 'text-red-400'}`}>
+                            {state.message}
+                        </p>
+                    )}
+                </CardContent>
+            </Card>
+        </div>
+    )
+}
