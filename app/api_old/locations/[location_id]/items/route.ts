@@ -1,4 +1,3 @@
-
 // use Next.js API routes to fetch data from Dine On Campus API
 // params: location_id
 // querystring: date (optional)
@@ -6,6 +5,9 @@
 
 type RouteParams = { params: { location_id: string } };
 import { getAllItems } from "../../../../../lib/dineOnCampusAPI";
+
+export const runtime = 'edge'
+
 
 export async function GET(request: Request, context: RouteParams) {
   // Return all items using getAllItems function

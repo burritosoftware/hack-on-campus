@@ -1,7 +1,12 @@
+'use server'
+
 // dineOnCampusAPI.ts
+
+
 
 const BASE_URL = "https://api.dineoncampus.com/v1";
 
+import { set_in_kv } from './cf';
 import {LocationsStatusResponse, SitesResponse, MenuItem} from './types/dineOnCampusAPI';
 // Helper function to make GET requests
 async function fetchData(endpoint: string, params: Record<string, string>): Promise<any> {
@@ -53,7 +58,7 @@ export async function getLocations(siteId: string): Promise<any> {
 // Fetch all items, by fetching all location periods, then period categories
 // Then, for each category, get all items in the items[]
 // Append category_id and period_id to each item
-export async function getAllItems(locationId: string, date: string = new Date().toISOString().split('T')[0], platform: number = 0): Promise<MenuItem[]> {
+export async function getAllItems(locationId: string, date: string = "2024-10-08", platform: number = 0): Promise<MenuItem[]> {
   const periods = await getLocationPeriods(locationId, date, platform);
   const items = [] as MenuItem[];
 
@@ -68,13 +73,13 @@ export async function getAllItems(locationId: string, date: string = new Date().
     }
   }
 
+items.forEach(item => {
+  set_in_kv(item.id, btoa(JSON.stringify(item)));
+});
+
   return items;
 
 }
-
-
-
-
 
 
 
@@ -100,3 +105,5 @@ export async function getAllItems(locationId: string, date: string = new Date().
 //     console.error(error);
 //   }
 // })();
+
+

@@ -6,7 +6,7 @@
             "author": "Zyjay Cruz",
             "category": "Pasta",
             "rating": 4.5,
-            "ingredients": [
+            "items": [
                 "67143e2e2b7b7acd380020b1",
                 "67143e2e2b7b7acd38002064",
                 "67143e2e2b7b7acd38002030",
@@ -21,7 +21,7 @@
             "author": "Zyjay Cruz",
             "category": "Snacks",
             "rating": 4.2,
-            "ingredients": [
+            "items": [
                 "67143e2e2b7b7acd380020fb",
                 "67143e2e2b7b7acd3800211d",
                 "67143e2e2b7b7acd38001fd4",
@@ -35,7 +35,7 @@
             "author": "Zyjay Cruz",
             "category": "Comfort",
             "rating": 4.8,
-            "ingredients": [
+            "items": [
                 "67143e2e2b7b7acd380020fb",
                 "67143e2e2b7b7acd38002167",
                 "67143e2e2b7b7acd38002080",
@@ -50,7 +50,7 @@
             "author": "Zyjay Cruz",
             "category": "Breakfast",
             "rating": 5.0,
-            "ingredients": [
+            "items": [
                 "67144d192b7b7acd389deaf4",
                 "67144d192b7b7acd389deadb",
                 "67144d192b7b7acd389deaea"

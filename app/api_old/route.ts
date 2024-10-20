@@ -1,6 +1,14 @@
+import { balls } from "@/lib/cf"
+
+
+export const runtime = 'edge';
 export async function GET() {
   let dineoncampusrreq = await fetch("https://api.dineoncampus.com/v1/sites/public")
   let dineoncampusres = await dineoncampusrreq.json()
+
+
+  console.log("hi");
+  await balls()
 
   return new Response(JSON.stringify(dineoncampusres), {
     headers: {

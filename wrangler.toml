@@ -1,4 +1,15 @@
-name = "my-app"
+name = "hack-on-campus"
 compatibility_date = "2024-07-29"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = ".vercel/output/static"
+
+
+[[kv_namespaces]]
+binding = "CACHE"
+preview_id = "e007ab61d3034a5ca98b26dbee932058"
+id = "e007ab61d3034a5ca98b26dbee932058"
+
+[[d1_databases]]
+binding = "D1"  # Matches the code binding name
+database_name = "hack-on-campus"
+database_id = "8ad7bba7-0f65-4614-93f0-662c4600ff3f"
