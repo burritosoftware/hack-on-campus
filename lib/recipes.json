@@ -1,0 +1,60 @@
+{
+    "recipes": [{
+            "id": "o9ikg4NUd1Hd5-qP1qHp8",
+            "name": "Pesto Corner Pasta",
+            "description": "Savor the perfect balance of tender grilled chicken, vibrant pesto pasta, and crispy herbed croutons for a fresh, flavorful twist on a classic dish.",
+            "author": "Zyjay Cruz",
+            "category": "Pasta",
+            "rating": 4.5,
+            "ingredients": [
+                "67143e2e2b7b7acd380020b1",
+                "67143e2e2b7b7acd38002064",
+                "67143e2e2b7b7acd38002030",
+                "67143e2e2b7b7acd38001f65",
+                "67143e2e2b7b7acd38002588"
+            ]
+        },
+        {
+            "id": "PViU6vFPaUJ6ZLlVZTPGa",
+            "name": "Cajun Parmesan Fries",
+            "description": "Indulge in crispy Cajun-spiced fries topped with a rich sprinkle of Parmesan for the ultimate savory snack with a spicy kick.",
+            "author": "Zyjay Cruz",
+            "category": "Snacks",
+            "rating": 4.2,
+            "ingredients": [
+                "67143e2e2b7b7acd380020fb",
+                "67143e2e2b7b7acd3800211d",
+                "67143e2e2b7b7acd38001fd4",
+                "67143e2e2b7b7acd38002569"
+            ]
+        },
+        {
+            "id": "awukZo6_dMaD1pT_tOaCv",
+            "name": "Halal Fries Bowl",
+            "description": "Enjoy a hearty Halal fries bowl loaded with tender chicken, creamy guac, sour cream, and melted shredded cheese, all over crispy fries for a satisfying, flavor-packed meal.",
+            "author": "Zyjay Cruz",
+            "category": "Comfort",
+            "rating": 4.8,
+            "ingredients": [
+                "67143e2e2b7b7acd380020fb",
+                "67143e2e2b7b7acd38002167",
+                "67143e2e2b7b7acd38002080",
+                "67143e2e2b7b7acd3800206e",
+                "67143e2e2b7b7acd38002069"
+            ]
+        },
+        {
+            "id": "f23ldj7nsglC_wVdFZcKk",
+            "name": "Golden Arch's Sausage Biscuits with Egg",
+            "description": "Enjoy a warm, buttery biscuit filled with a savory pork sausage patty, fluffy eggs, and topped with rich sausage gravy for a hearty breakfast delight.",
+            "author": "Zyjay Cruz",
+            "category": "Breakfast",
+            "rating": 5.0,
+            "ingredients": [
+                "67144d192b7b7acd389deaf4",
+                "67144d192b7b7acd389deadb",
+                "67144d192b7b7acd389deaea"
+            ]
+        }
+    ]
+}

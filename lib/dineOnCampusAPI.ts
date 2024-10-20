@@ -2,7 +2,7 @@
 
 const BASE_URL = "https://api.dineoncampus.com/v1";
 
-import {SitesResponse} from './types/dineOnCampusAPI';
+import {LocationsStatusResponse, SitesResponse, MenuItem} from './types/dineOnCampusAPI';
 // Helper function to make GET requests
 async function fetchData(endpoint: string, params: Record<string, string>): Promise<any> {
   const urlParams = new URLSearchParams(params).toString();
@@ -16,13 +16,13 @@ async function fetchData(endpoint: string, params: Record<string, string>): Prom
 }
 
 // Fetch list of public sites
-export async function getPublicSites(): Promise<any> {
+export async function getPublicSites(): Promise<SitesResponse> {
   const endpoint = '/sites/public';
   return fetchData(endpoint, {}) as unknown as SitesResponse;
 }
 
 // Fetch location status for a specific site
-export async function getLocationStatus(siteId: string, platform: number = 0): Promise<any> {
+export async function getLocationStatus(siteId: string, platform: number = 0): Promise<LocationsStatusResponse> {
   const endpoint = '/locations/status';
   const params = { site_id: siteId, platform: platform.toString() };
   return fetchData(endpoint, params);
@@ -53,9 +53,9 @@ export async function getLocations(siteId: string): Promise<any> {
 // Fetch all items, by fetching all location periods, then period categories
 // Then, for each category, get all items in the items[]
 // Append category_id and period_id to each item
-export async function getAllItems(locationId: string, date: string = new Date().toISOString().split('T')[0], platform: number = 0): Promise<any> {
+export async function getAllItems(locationId: string, date: string = new Date().toISOString().split('T')[0], platform: number = 0): Promise<MenuItem[]> {
   const periods = await getLocationPeriods(locationId, date, platform);
-  const items = [];
+  const items = [] as MenuItem[];
 
   for (const period of periods) {
     const categories = await getPeriodCategories(locationId, period.id, date, platform);
@@ -67,8 +67,11 @@ export async function getAllItems(locationId: string, date: string = new Date().
       }
     }
   }
+
   return items;
+
 }
+
 
 
 
