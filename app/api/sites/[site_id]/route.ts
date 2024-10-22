@@ -2,7 +2,7 @@
 // use NExt.js API routes to fetch data from Dine On Campus API
 // parms: site_id
 
-
+export const runtime = 'edge';
 type RouteParams = { params: { site_id: string } };
 import { getLocationStatus } from "../../../../lib/dineOnCampusAPI";
 export async function GET(request: Request, context: RouteParams) {

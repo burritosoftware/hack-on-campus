@@ -2,6 +2,7 @@
 // use NExt.js API routes to fetch data from Dine On Campus API
 // parms: site_id
 
+export const runtime = 'edge';
 
 type RouteParams = { params: { site_id: string } };
 
